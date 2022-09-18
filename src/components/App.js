@@ -1,6 +1,8 @@
 import React from "react";
 import Header from "./Header";
 import List from "./List";
+import Button from "./Button";
+import "../styles/App.css";
 
 //component dengan class
 class App extends React.Component {
@@ -13,15 +15,33 @@ class App extends React.Component {
             name : "Science"
         },
         season : ["season 1", "season 2", "season 3"],
+        text : "waw",
+    }
+
+    click = () => {
+        this.setState({
+            name : this.state.text
+        })
+        this.setState({
+            text : ""
+        })
+    }
+
+    change = e => {
+        this.setState({
+            text: e.target.value
+        })
     }
 
     render(){
         return (
-            <div>
+            <div className="box">
                 <Header/>
-                <List/>
-                <h1>Hello Brooo!</h1>
-                <h3>Judul : {this.state.name}</h3>
+                <List name="Daftar" book={this.state.name}>This is my list</List>
+                <h1 style={{ color:"blue"}}>Hello Brooo!</h1>
+                <input type="text" value={this.state.text} onChange={this.change}/>
+                <button onClick={this.click}>Click</button>
+                <h3 style={mystyle}>Judul : {this.state.name}</h3>
                 <p>Author : {this.state.author}</p>
                 <p>Category : {this.state.category.name}</p>
                 {this.state.season.map(item => 
@@ -29,9 +49,16 @@ class App extends React.Component {
                         <h3>{item}</h3>
                     </div>    
                 )}
+
+                <Button color="merah"/>
             </div>
         )
     }
+}
+
+const mystyle = {
+    color : "red",
+    fontWeight : "bold",
 }
 
 
